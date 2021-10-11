@@ -1,7 +1,9 @@
+"""API de notícias"""
 from flask import jsonify
 
 
 def list_news():
+    """Faz chamada ao serviço que retorna lista de notícias"""
     news = [
         {
             "author": {

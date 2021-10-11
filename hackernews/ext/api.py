@@ -2,6 +2,7 @@ import connexion
 
 
 def create_api_app(version="/"):
+    """Cria flask app via Connexion (OpenAPI 3)"""
     connexion_app = connexion.FlaskApp(
         __name__,
         specification_dir="../api/",

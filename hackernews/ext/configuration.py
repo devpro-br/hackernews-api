@@ -2,11 +2,13 @@ import os
 
 
 def init_app(app):
+    """Flask init app"""
     config = get_config_from_env()
     app.config.from_object(config)
 
 
 def get_config_from_env():
+    """Carrega configurações do ambiente"""
     envname = os.getenv("FLASK_ENV", "production").lower()
     if envname == "development":
         return DevelopmentConfig()
@@ -14,6 +16,8 @@ def get_config_from_env():
 
 
 class ProductionConfig:  # pylint: disable=R0903
+    """PROD"""
+
     # FLASK
     FLASK_ENV = "production"
     DEBUG = False
@@ -26,5 +30,7 @@ class ProductionConfig:  # pylint: disable=R0903
 
 
 class DevelopmentConfig(ProductionConfig):  # pylint: disable=R0903
+    """DEV"""
+
     FLASK_ENV = "development"
     DEBUG = True

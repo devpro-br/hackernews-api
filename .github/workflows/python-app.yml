@@ -1,0 +1,33 @@
+name: Hackernews API
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Python Linter
+        run: pylint hackernews/**/*.py
+
+      - name: Test with pytest
+        run: pytest --cache-clear
+        env:
+          FLASK_ENV: testing
+          FLASK_APP: hackernews.app

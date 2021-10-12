@@ -1,0 +1,16 @@
+version: "2.4"
+services:
+  postgres_dev:
+    container_name: "hnews-postgres-local"
+    image: "postgres:13.3-alpine"
+    env_file:
+      - .env
+    ports:
+      - "54320:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+
+volumes:
+  postgres_data:

@@ -1,8 +1,12 @@
-connexion==2.9.0
+# Flask & API
 Flask==1.1.4
+connexion==2.9.0
+Flask-Cors==3.0.10
 
 # Database Connection
 psycopg2-binary==2.9.1
+
+# Database ORM
 Flask-SQLAlchemy==2.5.1
 
 # Database Migration

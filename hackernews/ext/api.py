@@ -1,4 +1,5 @@
 import connexion
+from flask_cors import CORS
 
 
 def create_api_app(version="/"):
@@ -11,4 +12,8 @@ def create_api_app(version="/"):
         },
     )
     connexion_app.add_api("openapi.yaml", validate_responses=True, base_path=version)
+
+    # CORS
+    CORS(connexion_app.app)
+
     return connexion_app.app

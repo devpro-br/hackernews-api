@@ -25,9 +25,3 @@ jobs:
 
       - name: Python Linter
         run: pylint hackernews/**/*.py
-
-      - name: Test with pytest
-        run: pytest --cache-clear
-        env:
-          FLASK_ENV: testing
-          FLASK_APP: hackernews.app

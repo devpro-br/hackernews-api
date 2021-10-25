@@ -1,4 +1,12 @@
+[MASTER]
+load-plugins=
+    pylint_flask,
+    pylint_flask_sqlalchemy,
+
+
 [MESSAGES CONTROL]
-
-
-disable=missing-module-docstring,
+disable=
+    missing-module-docstring,
+    missing-class-docstring,
+    no-member,
+    invalid-repr-returned,

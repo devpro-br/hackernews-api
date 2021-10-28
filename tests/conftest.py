@@ -8,7 +8,7 @@ from hackernews.ext.database import db
 from hackernews.models.users import User
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(autouse=False)
 def app():
     app = create_app()
     with app.app_context():
@@ -17,7 +17,7 @@ def app():
         db.drop_all(app=app)
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="function", autouse=False)
 def db_session(app):
     conn = db.engine.connect()
     trans = conn.begin()

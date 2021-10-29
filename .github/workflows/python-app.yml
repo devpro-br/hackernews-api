@@ -10,6 +10,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_DB: hn_test
+          POSTGRES_PASSWORD: hn123
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+
     steps:
       - uses: actions/checkout@v2
 
@@ -25,3 +39,17 @@ jobs:
 
       - name: Python Linter
         run: pylint hackernews/**/*.py
+
+      - name: Rodar migrations
+        run: flask db upgrade
+        env:
+          FLASK_APP: hackernews.app
+          FLASK_ENV: development
+          DATABASE_URI: postgresql://postgres:hn123@localhost:5432/hn_test
+
+      - name: Tests
+        run: pytest
+        env:
+          FLASK_APP: hackernews.app
+          FLASK_ENV: development
+          DATABASE_URI: postgresql://postgres:hn123@localhost:5432/hn_test

@@ -1,6 +1,6 @@
 # Flask & API
 Flask==1.1.4
-connexion==2.9.0
+connexion[swagger-ui]==2.9.0
 Flask-Cors==3.0.10
 
 # Database Connection

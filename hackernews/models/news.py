@@ -28,10 +28,12 @@ class News(db.Model):
 
     def to_dict(self):
         """Convert model to dict"""
+        author = self.author.to_dict() if self.author else self.author
+
         return {
             "id": self.id,
             "title": self.title,
             "description": self.description,
             "created_at": self.created_at.isoformat(),
-            "author": self.author.to_dict(),
+            "author": author,
         }

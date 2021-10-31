@@ -33,6 +33,20 @@ def test_should_reject_title_less_than_min_title_length(client):
     assert response.json["detail"] == "'tiny-title' is too short - 'title'"
 
 
+def test_should_accept_null_description(client):
+    # Given a request with an empty description (non string)
+    response = client.post(
+        "/api/news",
+        json={
+            "title": "A valid and simple title",
+            "description": None,
+        },
+    )
+
+    # Then
+    assert response.status_code == 201
+
+
 def test_create_news_id(client):
     response = client.post(
         "/api/news",
@@ -43,7 +57,7 @@ def test_create_news_id(client):
     )
     news = response.json
 
-    assert news.get("id") == 1
+    assert news.get("id") is not None
 
 
 def test_create_news_status_created(client):

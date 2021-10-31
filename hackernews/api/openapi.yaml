@@ -45,6 +45,7 @@ paths:
                 description:
                   type: string
                   example: Some extra information about the news
+                  nullable: true
 
       responses:
         201:

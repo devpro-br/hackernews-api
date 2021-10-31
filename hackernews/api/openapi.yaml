@@ -25,6 +25,33 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/News"
+    post:
+      operationId: hackernews.api.news.create_news
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                  minLength: 12
+                description:
+                  type: string
+
+      responses:
+        201:
+          description: News created succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/News"
+        400:
+          description: Invalid data
 
 components:
   schemas:
@@ -60,6 +87,7 @@ components:
           nullable: true
         author:
           $ref: "#/components/schemas/Author"
+          nullable: true
         comments_count:
           type: integer
           example: 1

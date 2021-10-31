@@ -27,6 +27,7 @@ paths:
                       $ref: "#/components/schemas/News"
     post:
       operationId: hackernews.api.news.create_news
+      summary: Creates a news
       requestBody:
         required: true
         content:
@@ -39,9 +40,11 @@ paths:
               properties:
                 title:
                   type: string
+                  example: This is an awesome news
                   minLength: 12
                 description:
                   type: string
+                  example: Some extra information about the news
 
       responses:
         201:

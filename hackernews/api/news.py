@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify
 from hackernews.services import news as news_services
 
 
@@ -7,7 +7,10 @@ def list_news():
     return jsonify({"result": news_services.list_news()})
 
 
-def create_news():
+def create_news(body):
     """Faz chamada ao serviço que cria e retorna uma notícia"""
-    data = request.get_json()
-    return jsonify(news_services.create_news(data)), 201
+    new_data = news_services.create_news(
+        body["title"],
+        body.get("description"),
+    )
+    return jsonify(new_data), 201

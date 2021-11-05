@@ -9,8 +9,5 @@ def list_news():
 
 def create_news(body):
     """Faz chamada ao serviço que cria e retorna uma notícia"""
-    new_data = news_services.create_news(
-        body["title"],
-        body.get("description"),
-    )
+    new_data = news_services.create_news(body["title"], body.get("description"))
     return jsonify(new_data), 201

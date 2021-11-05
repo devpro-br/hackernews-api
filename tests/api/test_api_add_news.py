@@ -1,3 +1,6 @@
+from unittest.mock import patch
+
+
 def test_should_return_bad_request(client):
     # Given a request with no input data (body)
     response = client.post(
@@ -33,7 +36,8 @@ def test_should_reject_title_less_than_min_title_length(client):
     assert response.json["detail"] == "'tiny-title' is too short - 'title'"
 
 
-def test_should_accept_null_description(client):
+@patch("hackernews.services.news.create_news")
+def test_should_accept_null_description(news_mock, client):
     # Given a request with an empty description (non string)
     response = client.post(
         "/api/news",
@@ -45,22 +49,12 @@ def test_should_accept_null_description(client):
 
     # Then
     assert response.status_code == 201
+    news_mock.assert_called_once_with("A valid and simple title", None)
 
 
-def test_create_news_id(client):
-    response = client.post(
-        "/api/news",
-        json={
-            "title": "First Test News",
-            "description": "1o. teste",
-        },
-    )
-    news = response.json
+@patch("hackernews.services.news.create_news")
+def test_create_news_id(news_mock, client):
 
-    assert news.get("id") is not None
-
-
-def test_create_news_status_created(client):
     response = client.post(
         "/api/news",
         json={
@@ -70,3 +64,4 @@ def test_create_news_status_created(client):
     )
 
     assert response.status_code == 201
+    news_mock.assert_called_once_with("First Test News", "1o. teste")

@@ -38,6 +38,9 @@ def test_should_reject_title_less_than_min_title_length(client):
 
 @patch("hackernews.services.news.create_news")
 def test_should_accept_null_description(news_mock, client):
+
+    news_mock.return_value = {}
+
     # Given a request with an empty description (non string)
     response = client.post(
         "/api/news",
@@ -54,6 +57,8 @@ def test_should_accept_null_description(news_mock, client):
 
 @patch("hackernews.services.news.create_news")
 def test_create_news_id(news_mock, client):
+
+    news_mock.return_value = {}
 
     response = client.post(
         "/api/news",

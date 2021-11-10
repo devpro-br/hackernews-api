@@ -12,10 +12,11 @@ pylint-plugin-utils==0.6
 
 # Tests
 pytest==6.1.2
-pytest-flask==1.1.0
 pytest-dotenv==0.5.2
+pytest-flask==1.1.0
 pytest-mock==3.5.1
 mock==4.0.3
 
 # Devs
+ipython==7.29.0
 flask-shell-ipython==0.4.1

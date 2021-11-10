@@ -48,7 +48,7 @@ jobs:
           DATABASE_URI: postgresql://postgres:hn123@localhost:5432/hn_test
 
       - name: Tests
-        run: pytest
+        run: pytest --cache-clear
         env:
           FLASK_APP: hackernews.app
           FLASK_ENV: development

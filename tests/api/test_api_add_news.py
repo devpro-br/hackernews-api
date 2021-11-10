@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from mock import patch
 
 
 def test_should_return_bad_request(client):

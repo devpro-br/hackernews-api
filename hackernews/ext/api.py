@@ -1,6 +1,17 @@
 import connexion
 from flask_cors import CORS
 
+from hackernews.exceptions import UnauthorizedException
+
+
+def not_authorized_handler(error):
+    """Convert erros de serviços em erros de API"""
+    return {
+        "detail": str(error),
+        "status": 401,
+        "title": "Unauthorized Request",
+    }, 401
+
 
 def create_api_app(version="/"):
     """Cria flask app via Connexion (OpenAPI 3)"""
@@ -15,5 +26,8 @@ def create_api_app(version="/"):
 
     # CORS
     CORS(connexion_app.app)
+
+    # Error handlers
+    connexion_app.add_error_handler(UnauthorizedException, not_authorized_handler)
 
     return connexion_app.app

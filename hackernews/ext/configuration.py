@@ -28,6 +28,13 @@ class ProductionConfig:  # pylint: disable=R0903
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # AUTH and JWT
+    JWT_ISS = os.getenv("JWT_ISS", "https://confrarianews.com.br")
+    JWT_AUD = os.getenv("JWT_AUD", "auth.confrarianews.com.br")
+    JWT_EXPIRE_DAYS = int(os.getenv("JWT_EXPIRE_DAYS", "30"))
+    JWT_EXPIRE_HOURS = int(os.getenv("JWT_EXPIRE_HOURS", "0"))
+    JWT_RTOKEN_EXPIRE_DAYS = int(os.getenv("JWT_RTOKEN_EXPIRE_DAYS", "180"))
+
 
 class DevelopmentConfig(ProductionConfig):  # pylint: disable=R0903
     """DEV"""

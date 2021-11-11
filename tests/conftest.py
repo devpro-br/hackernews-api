@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from hackernews.app import create_app
 from hackernews.ext.database import db
 from hackernews.models.users import User
+from hackernews.services.token import generate_token
 
 
 @pytest.fixture(scope="session")
@@ -17,7 +18,7 @@ def app():
         db.drop_all(app=app)
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(autouse=True)
 def db_session(app):
     conn = db.engine.connect()
     trans = conn.begin()
@@ -42,9 +43,14 @@ def db_session(app):
     db.session.remove()
 
 
-@pytest.fixture
+@pytest.fixture()
 def user_mock(db_session):
     new_user = User(username="jd", email="john@doe.com", name="John Doe")
     db_session.add(new_user)
     db_session.commit()
     return new_user
+
+
+@pytest.fixture()
+def token_valid_mock(user_mock):
+    return generate_token(user_mock)

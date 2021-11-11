@@ -6,6 +6,48 @@ info:
   description: API
 
 paths:
+  /api/auth/login:
+    post:
+      operationId: hackernews.api.auth.login
+      summary: User login to get a JWT Token
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: johndoe
+                password:
+                  type: string
+                  example: "@bC1234"
+      responses:
+        200:
+          description: JWT Access Token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: Encripted.JWT.Token
+                  refresh_token:
+                    type: string
+                    example: Another.Encripted.JWT.Token.With.Long.Expiration
+        400:
+          description: Bad request. You must send a username and password
+        401:
+          description: Username or password is invalid
+
   /api/news:
     get:
       operationId: hackernews.api.news.list_news
@@ -28,6 +70,10 @@ paths:
     post:
       operationId: hackernews.api.news.create_news
       summary: Creates a news
+      tags:
+        - News
+      security:
+        - jwtAuth: [news:create]
       requestBody:
         required: true
         content:
@@ -56,8 +102,21 @@ paths:
                 $ref: "#/components/schemas/News"
         400:
           description: Invalid data
+        401:
+          description: No Authorization
+        403:
+          description: No Permission
 
 components:
+  securitySchemes:
+    jwtAuth:
+      type: oauth2
+      x-tokenInfoFunc: hackernews.services.token.check_token_info
+      flows:
+        authorizationCode:
+          tokenUrl: "url"
+          authorizationUrl: "url"
+
   schemas:
     Author:
       type: object

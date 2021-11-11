@@ -64,3 +64,6 @@ wrapt==1.12.1
 
 # Heroku deploy
 gunicorn==20.1.0
+
+# AUTH
+PyJWT==2.1.0

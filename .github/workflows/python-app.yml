@@ -62,8 +62,7 @@ jobs:
 
       - name: Build
         run: |
-          export GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
-          docker build --build-arg GIT_HASH=${GIT_HASH::7} .
+          docker build --build-arg GIT_HASH="${GITHUB_REF#refs/heads/}.${GITHUB_SHA}" .
 
       - name: Log into GitHub Container Registry
         uses: docker/login-action@v1

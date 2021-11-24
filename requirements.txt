@@ -62,8 +62,9 @@ urllib3==1.26.7
 wcwidth==0.2.5
 wrapt==1.12.1
 
-# Heroku deploy
-gunicorn==20.1.0
+# Deploy
+gunicorn==20.1.0   # Heroku
+uWSGI==2.0.19.1    # DO
 
 # AUTH
 PyJWT==2.1.0

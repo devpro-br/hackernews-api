@@ -23,6 +23,7 @@ class ProductionConfig:  # pylint: disable=R0903
     DEBUG = False
     TESTING = False
     SECRET_KEY = os.getenv("FLASK_SECRET_KEY", "Ch@nG3_th1s_IN_PR0D!")
+    # SERVER_NAME = os.getenv("SERVER_NAME", "127.0.0.1:5000")
 
     # DATABASE
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")

@@ -107,6 +107,17 @@ paths:
         403:
           description: No Permission
 
+  /api/status:
+    get:
+      operationId: hackernews.api.status.get_status
+      summary: Returns the system statuses
+      tags:
+        - Status
+
+      responses:
+        200:
+          description: Success
+
 components:
   securitySchemes:
     jwtAuth:

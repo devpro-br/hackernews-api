@@ -62,7 +62,8 @@ jobs:
 
       - name: Build
         run: |
-          docker build --build-arg GIT_HASH="${GITHUB_REF#refs/heads/}.${GITHUB_SHA}" .
+          echo "Creating image $GITHUB_SHA"
+          docker build --build-arg GIT_HASH="$GITHUB_SHA" .
 
       - name: Log into GitHub Container Registry
         uses: docker/login-action@v1

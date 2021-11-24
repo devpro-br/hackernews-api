@@ -56,6 +56,14 @@ jobs:
 
       - name: Set up Docker Builder
         uses: docker/setup-buildx-action@v1
+        id: buildx
+        with:
+          install: true
+
+      - name: Build
+        run: |
+          export GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
+          docker build --build-arg GIT_HASH=${GIT_HASH::7} .
 
       - name: Log into GitHub Container Registry
         uses: docker/login-action@v1

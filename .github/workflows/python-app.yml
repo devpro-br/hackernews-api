@@ -69,6 +69,11 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
+      - name: Extract commit sha
+        shell: bash
+        run: echo "##[set-output name=github_sha;]$(echo ${GITHUB_REF#refs/heads/}.${GITHUB_SHA})"
+        id: extract_sha
+
       # Push to Github Container Registry
       - name: Push to Github Container Registry
         uses: docker/build-push-action@v2
@@ -78,5 +83,5 @@ jobs:
           file: Dockerfile
           target: production
           push: true
-          build-args: GIT_HASH="$GITHUB_SHA"
+          build-args: GIT_HASH=${{ steps.extract_sha.outputs.github_sha }}
           tags: "ghcr.io/${{ github.repository }}:${{ steps.extract_branch.outputs.branch }}"

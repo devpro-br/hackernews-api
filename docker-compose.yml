@@ -11,6 +11,25 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 
+  backend_api:
+    container_name: hnews-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: development
+    environment:
+      FLASK_APP: hackernews.app
+      FLASK_ENV: development
+      FLASK_SECRET_KEY: ijhsabfgiipfhsiufhewi
+      C_FORCE_ROOT: "y"
+      DATABASE_URI: postgresql://hnews:hnews@postgres_dev/hnews_dblocal
+    volumes:
+      - ./:/app
+    ports:
+      - "5000:5000"
+    tty: true
+    depends_on:
+      - postgres_dev
 
 volumes:
   postgres_data:

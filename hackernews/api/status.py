@@ -5,7 +5,11 @@ from hackernews.ext.database import db
 
 def get_status():
     """Retorna status do sistema"""
-    return {"sha": os.getenv("GIT_HASH"), "database": _get_db_status()}
+    return {
+        "sha": os.getenv("GIT_HASH"),
+        "database": _get_db_status(),
+        "api_version": "0.0.3",
+    }
 
 
 def _get_db_status():

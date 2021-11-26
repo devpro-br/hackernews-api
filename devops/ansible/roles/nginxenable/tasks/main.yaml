@@ -1,0 +1,19 @@
+---
+- name: Ensure nginx service is started
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Setup nginx backend API conf
+  template:
+    src: "nginx/{{ project_version }}/confrarianews.conf"
+    dest: "/etc/nginx/sites-available/confrarianews_{{ project_version }}"
+
+- name: Enable the nginx backend API
+  file:
+    src: "/etc/nginx/sites-available/confrarianews_{{ project_version }}"
+    dest: "/etc/nginx/sites-enabled/confrarianews_{{ project_version }}"
+    state: link
+  notify:
+    - reload nginx

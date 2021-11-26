@@ -1,0 +1,17 @@
+---
+environment: production
+project_name: confrarianews_api
+project_version: production
+server_url: confrarianews.app
+app_port: 5000
+
+flask_secret_key: "***"
+
+database_name: confrarianews
+database_user: confrarianews
+database_password: "***"
+
+repo_owner: confraria-devpro
+repo_cr_pat: "***"
+repo_gh_package: "ghcr.io/{{ repo_owner }}/hackernews-api"
+repo_gh_version: main

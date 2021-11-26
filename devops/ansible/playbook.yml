@@ -1,0 +1,11 @@
+---
+- hosts: [production]
+  user: ubuntu
+  become: yes
+  become_user: root
+  roles:
+    - { role: docker, tags: [docker] }
+    - { role: postgres, tags: [postgres] }
+    - { role: backend, tags: [backend] }
+    - { role: nginx, tags: [nginx] }
+    - { role: nginxenable, tags: [nginxenable] }

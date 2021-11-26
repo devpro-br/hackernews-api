@@ -1,0 +1,40 @@
+---
+- name: Login into Github Docker Image Registry
+  shell: "docker login https://ghcr.io -u $REPO_OWNER -p $REPO_CR_PAT"
+  environment:
+    REPO_OWNER: "{{ repo_owner }}"
+    REPO_CR_PAT: "{{ repo_cr_pat }}"
+
+- name: "Pull Docker Image {{ repo_gh_package }}:{{ repo_gh_version }}"
+  docker_image:
+    name: "{{ repo_gh_package }}"
+    tag: "{{ repo_gh_version }}"
+    state: present
+    source: pull
+    force_source: yes
+
+- name: Creates the socket directory
+  file:
+    path: "/tmp/{{ repo_gh_version }}"
+    state: directory
+    owner: ubuntu
+    group: root
+    mode: 0775
+
+- name: "Start the backend container: {{ repo_gh_version }}"
+  docker_container:
+    name: "{{ project_name }}-{{ project_version }}"
+    image: "{{ repo_gh_package }}:{{ repo_gh_version }}"
+    state: started
+    recreate: yes
+    network_mode: host
+    ports:
+      - "{{ app_port }}:{{ app_port }}"
+    volumes:
+      - "/tmp/{{ repo_gh_version }}:/tmp"
+    env:
+      FLASK_ENV: "{{ project_version }}"
+      FLASK_APP: hackernews.app
+      FLASK_SECRET_KEY: "{{ flask_secret_key }}"
+      DATABASE_URI: "postgresql://{{ database_user }}:{{ database_password }}@localhost/{{ database_name }}"
+      SERVER_NAME: "{{ server_url }}"

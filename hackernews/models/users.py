@@ -10,6 +10,7 @@ class User(db.Model):
 
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
     username = sa.Column(sa.String(128), unique=True, nullable=False)
+    password = sa.Column(sa.String(128), nullable=True)
     email = sa.Column(sa.String(255), unique=True, nullable=True)
     name = sa.Column(sa.String(128), nullable=False)
     avatar = sa.Column(sa.UnicodeText(), nullable=True)

@@ -1,4 +1,5 @@
 import pytest
+from werkzeug.security import generate_password_hash
 
 from hackernews.exceptions import UnauthorizedException
 from hackernews.services import auth
@@ -22,13 +23,14 @@ def test_should_return_tokens(db_session):
     """
     user = User(
         name="John Doe",
-        username="jd",
+        username="jd@example.com",
         email="jd@example.com",
+        password=generate_password_hash("abacate"),
     )
     db_session.add(user)
     db_session.commit()
 
-    response = auth.login("jd", "jd")
+    response = auth.login("jd@example.com", "abacate")
 
     assert response["token"] is not None
     assert response["refresh_token"] is not None

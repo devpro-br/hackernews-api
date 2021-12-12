@@ -1,7 +1,7 @@
 import connexion
 from flask_cors import CORS
 
-from hackernews.exceptions import UnauthorizedException
+from hackernews.exceptions import UnauthorizedException, ConflictValueException
 
 
 def not_authorized_handler(error):
@@ -11,6 +11,15 @@ def not_authorized_handler(error):
         "status": 401,
         "title": "Unauthorized Request",
     }, 401
+
+
+def data_conflict_handler(error):
+    """Convert erros de serviços em erros de API"""
+    return {
+        "detail": str(error),
+        "status": 409,
+        "title": "Data Conflict Request",
+    }, 409
 
 
 def create_api_app(version="/"):
@@ -29,5 +38,6 @@ def create_api_app(version="/"):
 
     # Error handlers
     connexion_app.add_error_handler(UnauthorizedException, not_authorized_handler)
+    connexion_app.add_error_handler(ConflictValueException, data_conflict_handler)
 
     return connexion_app.app

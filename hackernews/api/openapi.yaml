@@ -48,6 +48,61 @@ paths:
         401:
           description: Username or password is invalid
 
+  /api/auth/signup:
+    post:
+      operationId: hackernews.api.auth.signup
+      summary: Create a new User
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+                - username
+                - password
+                - email
+                - name
+              properties:
+                username:
+                  type: string
+                  example: johndoe
+                password:
+                  type: string
+                  example: "@bC1234"
+                email:
+                  type: string
+                  example: "jd@example.com"
+                name:
+                  type: string
+                  example: "John Doe"
+                avatar:
+                  type: string
+                  example: "Image URL"
+                  nullable: true
+
+      responses:
+        200:
+          description: JWT Access Token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: Encripted.JWT.Token
+                  refresh_token:
+                    type: string
+                    example: Another.Encripted.JWT.Token.With.Long.Expiration
+        400:
+          description: Bad request. You must send a username and password
+        401:
+          description: Username or password is invalid
+
   /api/news:
     get:
       operationId: hackernews.api.news.list_news

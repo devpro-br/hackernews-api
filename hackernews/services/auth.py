@@ -1,13 +1,13 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from hackernews.ext.database import db
 from hackernews.exceptions import (
-    UnauthorizedException,
-    InvalidValueException,
     ConflictValueException,
+    InvalidValueException,
+    UnauthorizedException,
 )
-from hackernews.services import token as token_services
+from hackernews.ext.database import db
 from hackernews.models.users import User
+from hackernews.services import token as token_services
 
 INVALID_LOGIN_MSG = "Username or password invalid"
 

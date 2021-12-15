@@ -1,6 +1,6 @@
-from hackernews.ext import configuration, api, database
-from hackernews.models.users import User  # pylint: disable=W0611
+from hackernews.ext import api, configuration, database
 from hackernews.models.news import News  # pylint: disable=W0611
+from hackernews.models.users import User  # pylint: disable=W0611
 
 
 def create_app(**config):

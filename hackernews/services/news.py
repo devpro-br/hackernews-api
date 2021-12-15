@@ -1,7 +1,7 @@
 from sqlalchemy.exc import DataError
 
-from hackernews.models.news import News
 from hackernews.ext.database import db
+from hackernews.models.news import News
 
 
 def list_news():

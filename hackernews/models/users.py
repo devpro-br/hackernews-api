@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+
 import sqlalchemy as sa
 
 from hackernews.ext.database import db

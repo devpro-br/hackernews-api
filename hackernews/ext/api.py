@@ -1,7 +1,7 @@
 import connexion
 from flask_cors import CORS
 
-from hackernews.exceptions import UnauthorizedException, ConflictValueException
+from hackernews.exceptions import ConflictValueException, UnauthorizedException
 
 
 def not_authorized_handler(error):
